@@ -1,0 +1,59 @@
+﻿@model Antisya.YaprakDemir.ComplexType.MusteriUrunViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+<label>Musteri Adı Soyadı</label>
+<input class="form-control musteriAdiSoyadi" type="text" />
+<label>Musteri Vergi Dairesi</label>
+<input class="form-control vergiDairesi" type="text" />
+<label>Musteri Vergi No</label>
+<input class="form-control vergiNo" type="text" />
+<a href="#" class="btn btn-success musteriEkle">Müşteri Ekle</a>
+
+<hr />
+<h4>Urun Listesi</h4>
+<ul>
+    @foreach (var item in Model.UrunListesi)
+    {
+        <li>@item.UrunAdi</li>
+    }
+</ul>
+<h4>Müşteri Listesi</h4>
+<ul>
+    @foreach (var item in Model.MusteriListesi)
+    {
+        <li>@item.MusteriAdi</li>
+    }
+</ul>
+<script>
+    $(".musteriEkle").click(function () {
+        //Bilgileri alıyorum
+        var _musteriAdiSoyadi = $(".musteriAdiSoyadi").val();
+        var _musterivergiDairesi = $(".vergiDairesi").val();
+        var _musterivergiNo = $(".vergiNo").val();
+        //MusteriTableDto örneği alıyorum  Bilgileri veriyorum
+        const MusteriTableDto = {
+            MusteriAdi: _musteriAdiSoyadi,
+            VergiDairesi: _musterivergiDairesi,
+            VergiNo:_musterivergiNo 
+        };
+        //post işlemi yapıyorum MusteriTableDto gönderiyorum
+        $.post("/Home/MusteriEkle", { musteri: MusteriTableDto }, function (response) {
+            console.log(response);
+            if (response.success) {
+                location.href="/Home/Index";
+            }
+            else if (response.Success == false) {
+
+            }
+        }).fail(function () {
+
+        })
+
+    })
+</script>

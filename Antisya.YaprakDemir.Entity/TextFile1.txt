@@ -1,0 +1,1 @@
+﻿Scaffold-DbContext "Server=BURYAZ;Database=YDSatisApp;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Model -Context "YdSatisAppContext" -force 
